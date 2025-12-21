@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import CTAButton from "./CTAButton"
 import Link from "next/link"
