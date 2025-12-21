@@ -14,7 +14,9 @@ export default function NavBar() {
 
           <div className="flex flex-row gap-5 items-center">
 
-            <h2 className="font-medium">Contact</h2>
+            <Link href="/contact">
+              <h2 className="font-medium">Contact</h2>
+            </Link>
             <div>
             <CTAButton/>
             </div>
