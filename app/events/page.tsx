@@ -10,6 +10,7 @@ interface EventFromSupabase {
     created_at: string;
     name: string;
     description: string;
+    date:string;
     startTime: string;
     endTime: string;
     campus: string;
@@ -57,6 +58,7 @@ export default function App() {
                                 <Event 
                                     key={event.id}
                                     title={event.name} 
+                                    date={event.date}
                                     startTime={event.startTime} 
                                     endTime={event.endTime} 
                                     campus={event.campus} 
