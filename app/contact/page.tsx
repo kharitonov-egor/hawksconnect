@@ -4,7 +4,7 @@ import NavBar from "../NavBar"
 
 export default function Contact() {
     return (
-        <div className="flex flex-col min-h-screen bg-zinc-50 text-black">
+        <div className="flex flex-col h-full w-full bg-zinc-50 text-black">
             <NavBar/>
             <div className="flex justify-center items-center mt-15">
 
