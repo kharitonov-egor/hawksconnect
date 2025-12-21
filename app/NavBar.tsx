@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function NavBar() {
     return (
         <div className="w-full flex items-center justify-center h-[75px]">
-        <div className="w-[1200px] h-full flex flex-row justify-between items-center p-4 bg-gray-200 mt-5 rounded-md">
+        <div className="w-[1200px] h-full flex flex-row justify-between items-center p-4 bg-gray-200 mt-5 rounded-md mr-2 ml-2 md:mr-0 md:ml-0">
           <div>
             <Link href="/">
               <Image src='/icon.png' alt="HawksConnect Logo" width={50} height={50}/>
