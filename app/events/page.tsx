@@ -1,10 +1,45 @@
 "use client"
 import { CalendarDays } from 'lucide-react'
 import NavBar from "../NavBar"
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
+
+
+interface EventFromSupabase {
+    id: string;
+    created_at: string;
+    name: string;
+    description: string;
+    startTime: string;
+    endTime: string;
+    campus: string;
+    location: string;
+    attending: number;
+    club: string;
+
+}
 
 import Event from "./event"
 
 export default function App() {
+
+    const [data, setData] = useState<any[] | null>(null);
+  
+    const setNewView = async () => {
+      const {data, error} = await supabase.from("events_test").select('*')
+      console.log(20)
+  
+      if (data) {
+        console.log(data)
+        setData(data)
+      }
+      if (error) console.log(error)
+    }
+  
+    useEffect(() => {
+      setNewView();
+    }, []);
+
     return (
         <div className="flex flex-col h-full w-full bg-zinc-50 text-black">
             <NavBar/>
@@ -17,9 +52,20 @@ export default function App() {
                     </div>
 
                     <div className='flex flex-col gap-4'>
-                        <Event/>
-                        <Event/>
-                        <Event/>
+                        {
+                            data?.map(event => (
+                                <Event 
+                                    key={event.id}
+                                    title={event.name} 
+                                    startTime={event.startTime} 
+                                    endTime={event.endTime} 
+                                    campus={event.campus} 
+                                    location={event.location} 
+                                    attending={event.attending} 
+                                />
+                            ))
+                        }
+
                     </div>
 
 
