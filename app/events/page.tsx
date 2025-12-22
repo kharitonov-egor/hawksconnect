@@ -6,12 +6,13 @@ import { supabase } from "../lib/supabase";
 import ComboboxDemo, { campuses } from "./campusChoice"
 import { Button } from "@/components/ui/button"
 
+
+
 interface EventFromSupabase {
     id: string;
     created_at: string;
     name: string;
     description: string;
-    date:string;
     startTime: string;
     endTime: string;
     campus: string;
@@ -30,7 +31,9 @@ export default function App() {
   
     const setNewView = async () => {
       const {data, error} = await supabase.from("events_test").select('*').in("campus", selectedCampuses)
-  
+
+      console.log(data?.[0]?.startTime)
+
       if (data) {
         setData(data)
       }
@@ -40,7 +43,7 @@ export default function App() {
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
             <NavBar/>
-            <div className="flex justify-center p-3 md:p-0">
+            <div className="flex justify-center p-3 pb-20 md:p-0">
                 <div className="flex flex-col w-[1200px] mt-15">
 
                     <div className='flex flex-row gap-1 items-center mb-10'>
@@ -66,7 +69,6 @@ export default function App() {
                                 <Event 
                                     key={event.id}
                                     title={event.name} 
-                                    date={event.date}
                                     startTime={event.startTime} 
                                     endTime={event.endTime} 
                                     campus={event.campus} 
