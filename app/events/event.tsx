@@ -27,7 +27,7 @@ export default function Event({title, date, startTime, endTime, campus, location
 
 
     return (
-        <div className="w-full h-fit md:h-[150px] bg-gray-200 p-4 rounded-md border border-gray-400/50 shadow-sm">
+        <div className="w-full h-fit md:h-[150px] bg-gray-100 p-4 rounded-md border border-gray-400/50 shadow-sm">
 
             <div className='flex flex-row gap-5'>
 
@@ -37,10 +37,11 @@ export default function Event({title, date, startTime, endTime, campus, location
 
                 <div>
 
-                    <h1 className='font-semibold text-xl mb-3'>{title}</h1>
+                    <h1 className='font-semibold text-xl mb-4'>{title}</h1>
                     
                     <div className='flex flex-col md:flex-row gap-10'>
-                        <div className='flex flex-row items-start gap-1'>
+
+                        <div className='w-50 flex flex-row items-start gap-2'>
                             <Clock color="#06357A" size={20} />
                             <div className='flex flex-col'>
                                 <h2>{date}</h2>
@@ -52,7 +53,7 @@ export default function Event({title, date, startTime, endTime, campus, location
 
                         </div>
 
-                        <div className='flex flex-row items-center gap-1'>
+                        <div className='w-50 flex flex-row items-start gap-2'>
                             <MapPin color="#06357A" size={20} />
                             <div className='flex flex-col'>
                                 <h2>{displayCampus}</h2>
@@ -63,11 +64,11 @@ export default function Event({title, date, startTime, endTime, campus, location
 
                         </div>
 
-                        <div className='flex flex-row items-center gap-1'>
+                        {/* <div className='flex flex-row items-center gap-1'>
                             <UserRound color="#06357A" size={20} />
                             <h2>{attending} attending</h2>
 
-                        </div>
+                        </div> */}
                     
 
                     </div>

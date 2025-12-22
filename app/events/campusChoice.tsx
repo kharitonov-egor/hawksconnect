@@ -44,6 +44,10 @@ export const campuses = [
     value: "westshore",
     label: "Westshore Campus",
   },
+  {
+    value: "hawkslanding",
+    label: "Hawks Landing",
+  },
 ]
 
 interface ComboboxDemoProps {
@@ -52,7 +56,7 @@ interface ComboboxDemoProps {
 }
 
 export default function ComboboxDemo({
-  selectedValues = campuses.map((campus) => campus.value),
+  selectedValues = [],
   onSelectedValuesChange,
 }: ComboboxDemoProps) {
   const [open, setOpen] = React.useState(false)
