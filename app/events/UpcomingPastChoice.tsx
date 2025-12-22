@@ -19,49 +19,38 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export const campuses = [
+export const upcomingPastOptions = [
   {
-    value: "dale_mabry",
-    label: "Dale Mabry Campus",
+    value: "upcoming",
+    label: "Upcoming",
   },
   {
-    value: "hawkslanding",
-    label: "Hawks Landing",
+    value: "past",
+    label: "Past",
   },
 ]
 
-interface ComboboxDemoProps {
-  selectedValues?: string[]
-  onSelectedValuesChange: (values: string[]) => void
+interface UpcomingPastChoiceProps {
+  selectedValues?: string
+  onSelectedValuesChangeUpcoming: (values: string) => void
 }
 
-export default function ComboboxDemo({
-  selectedValues = [],
-  onSelectedValuesChange,
-}: ComboboxDemoProps) {
+export default function UpcomingPastChoice({
+  selectedValues = "",
+  onSelectedValuesChangeUpcoming,
+}: UpcomingPastChoiceProps) {
   const [open, setOpen] = React.useState(false)
 
   const toggleValue = (value: string) => {
-    const currentValues = selectedValues || []
-    const newValues = currentValues.includes(value)
-      ? currentValues.filter((v) => v !== value)
-      : [...currentValues, value]
-    onSelectedValuesChange(newValues)
-    console.log(newValues)
+    onSelectedValuesChangeUpcoming(value)
+    setOpen(false)
   }
 
   const getButtonText = () => {
-    const values = selectedValues || []
-    if (values.length === 0) {
-      return "Select campus..."
+    if (!selectedValues || selectedValues === "") {
+      return "Select time period..."
     }
-    if (values.length === campuses.length) {
-      return "All campuses"
-    }
-    if (values.length === 1) {
-      return campuses.find((campus) => campus.value === values[0])?.label
-    }
-    return `${values.length} campuses selected`
+    return upcomingPastOptions.find((option) => option.value === selectedValues)?.label || "Select time period..."
   }
 
   return (
@@ -79,23 +68,23 @@ export default function ComboboxDemo({
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] sm:w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search campus..." className="h-9" />
+          <CommandInput placeholder="Search..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No campus found.</CommandEmpty>
+            <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
-              {campuses.map((campus) => (
+              {upcomingPastOptions.map((option) => (
                 <CommandItem
-                  key={campus.value}
-                  value={campus.value}
+                  key={option.value}
+                  value={option.value}
                   onSelect={() => {
-                    toggleValue(campus.value)
+                    toggleValue(option.value)
                   }}
                 >
-                  {campus.label}
+                  {option.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      (selectedValues || []).includes(campus.value)
+                      selectedValues === option.value
                         ? "opacity-100"
                         : "opacity-0"
                     )}

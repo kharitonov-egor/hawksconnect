@@ -30,9 +30,9 @@ export default function Event({title, startTime, endTime, campus, location, atte
 
 
     return (
-        <div className="w-full h-fit md:h-[150px] bg-gray-100 p-4 rounded-md border border-gray-400/50 shadow-sm">
+        <div className="w-full h-fit md:h-[150px] bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
 
-            <div className='flex flex-row gap-5'>
+            <div className='flex flex-col md:flex-row gap-5'>
                 
                 {/* <div className='bg-gray-400/20 size-[90px] rounded-md'>
 
@@ -40,12 +40,12 @@ export default function Event({title, startTime, endTime, campus, location, atte
 
                 <div>
 
-                    <h1 className='font-semibold text-xl mb-4'>{title}</h1>
+                    <h1 className='font-semibold text-lg md:text-xl mb-3 md:mb-4 break-words'>{title}</h1>
                     
                     <div className='flex flex-col md:flex-row gap-4 md:gap-10'>
 
                         <div className='w-75 flex flex-row items-start gap-2'>
-                            <Clock color="#06357A" size={20} />
+                            <Clock color="#06357A" size={18} />
                             <div className='flex flex-col'>
                                 <h2>{moment(startTime).format('ddd, MMMM Do YYYY')}</h2>
                                 {
@@ -57,7 +57,7 @@ export default function Event({title, startTime, endTime, campus, location, atte
                         </div>
 
                         <div className='w-75 flex flex-row items-start gap-2'>
-                            <MapPin color="#06357A" size={20} />
+                            <MapPin color="#06357A" size={18} />
                             <div className='flex flex-col'>
                                 <h2>{displayCampus}</h2>
                                 <h2>{location}</h2>
