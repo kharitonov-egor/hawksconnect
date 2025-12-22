@@ -9,7 +9,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
@@ -79,7 +78,6 @@ export default function ComboboxDemo({
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] sm:w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search campus..." className="h-9" />
           <CommandList>
             <CommandEmpty>No campus found.</CommandEmpty>
             <CommandGroup>

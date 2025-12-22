@@ -9,7 +9,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
@@ -68,7 +67,6 @@ export default function UpcomingPastChoice({
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] sm:w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
