@@ -38,7 +38,7 @@ export default function App() {
     }
   
     return (
-        <div className="flex flex-col h-full w-full bg-zinc-50 text-black">
+        <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
             <NavBar/>
             <div className="flex justify-center p-3 md:p-0">
                 <div className="flex flex-col w-[1200px] mt-15">
