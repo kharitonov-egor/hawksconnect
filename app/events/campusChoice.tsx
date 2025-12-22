@@ -1,0 +1,127 @@
+"use client"
+
+import * as React from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+export const campuses = [
+  {
+    value: "dale_mabry",
+    label: "Dale Mabry Campus",
+  },
+  {
+    value: "plant_city",
+    label: "Plant City Campus",
+  },
+  {
+    value: "brandon",
+    label: "Brandon Campus",
+  },
+  {
+    value: "south_shore",
+    label: "South Shore Campus",
+  },
+  {
+    value: "ybor",
+    label: "Ybor Campus",
+  },
+  {
+    value: "westshore",
+    label: "Westshore Campus",
+  },
+]
+
+interface ComboboxDemoProps {
+  selectedValues?: string[]
+  onSelectedValuesChange: (values: string[]) => void
+}
+
+export default function ComboboxDemo({
+  selectedValues = campuses.map((campus) => campus.value),
+  onSelectedValuesChange,
+}: ComboboxDemoProps) {
+  const [open, setOpen] = React.useState(false)
+
+  const toggleValue = (value: string) => {
+    const currentValues = selectedValues || []
+    const newValues = currentValues.includes(value)
+      ? currentValues.filter((v) => v !== value)
+      : [...currentValues, value]
+    onSelectedValuesChange(newValues)
+    console.log(newValues)
+  }
+
+  const getButtonText = () => {
+    const values = selectedValues || []
+    if (values.length === 0) {
+      return "Select campus..."
+    }
+    if (values.length === campuses.length) {
+      return "All campuses"
+    }
+    if (values.length === 1) {
+      return campuses.find((campus) => campus.value === values[0])?.label
+    }
+    return `${values.length} campuses selected`
+  }
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[200px] justify-between"
+        >
+          {getButtonText()}
+          <ChevronsUpDown className="opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search campus..." className="h-9" />
+          <CommandList>
+            <CommandEmpty>No campus found.</CommandEmpty>
+            <CommandGroup>
+              {campuses.map((campus) => (
+                <CommandItem
+                  key={campus.value}
+                  value={campus.value}
+                  onSelect={() => {
+                    toggleValue(campus.value)
+                  }}
+                >
+                  {campus.label}
+                  <Check
+                    className={cn(
+                      "ml-auto",
+                      (selectedValues || []).includes(campus.value)
+                        ? "opacity-100"
+                        : "opacity-0"
+                    )}
+                  />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}

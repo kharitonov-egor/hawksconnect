@@ -3,6 +3,7 @@ import { CalendarDays } from 'lucide-react'
 import NavBar from "../NavBar"
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import ComboboxDemo, { campuses } from "./campusChoice"
 
 
 interface EventFromSupabase {
@@ -25,10 +26,14 @@ import Event from "./event"
 export default function App() {
 
     const [data, setData] = useState<any[] | null>(null);
+    const [selectedCampuses, setSelectedCampuses] = useState<string[]>(
+      campuses.map((campus) => campus.value)
+    );
   
     const setNewView = async () => {
       const {data, error} = await supabase.from("events_test").select('*')
-      console.log(20)
+
+
   
       if (data) {
         console.log(data)
@@ -51,6 +56,11 @@ export default function App() {
                         <CalendarDays color="#06357A" size={35}/>
                         <h2 className="text-3xl md:text-4xl font-semibold">Events</h2>
                     </div>
+                    
+                    <ComboboxDemo 
+                      selectedValues={selectedCampuses}
+                      onSelectedValuesChange={setSelectedCampuses}
+                    />
 
                     <div className='flex flex-col gap-4'>
                         {
