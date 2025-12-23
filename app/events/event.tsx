@@ -1,5 +1,10 @@
 import { MapPin, Clock, UserRound } from 'lucide-react'
 import {TimeConverter} from "../../lib/utils"
+import { Button } from "@/components/ui/button"
+
+import { useRouter } from "next/navigation";
+
+
 
 interface EventProps{
     title: string;
@@ -13,6 +18,7 @@ interface EventProps{
     imageHeight?:number;
     imageWidth?: number;
     club:string;
+    instaShortURL:string;
 }
 
 import Image from "next/image"
@@ -21,7 +27,7 @@ import moment from 'moment'
 
 import BothTimes from "./bothTimes"
 
-export default function Event({title, description, startTime, endTime, campus, location, attending, imageUrl, imageHeight, imageWidth, club} : EventProps) {
+export default function Event({title, description, startTime, endTime, campus, location, attending, imageUrl, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
 
     const campusDisplayNames: { [key: string]: string } = {
         "dale_mabry": "Dale Mabry Campus",
@@ -36,6 +42,8 @@ export default function Event({title, description, startTime, endTime, campus, l
     console.log(imageUrl)
     
     const displayCampus = campusDisplayNames[campus] || campus;
+
+    const router = useRouter();
 
     return (
         <div className="w-full h-fit bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
@@ -99,6 +107,10 @@ export default function Event({title, description, startTime, endTime, campus, l
 
                     
 
+                    </div>
+
+                    <div className='mt-7'>
+                        <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => router.push(`/events/${instaShortURL}`)}>Find out more</Button>
                     </div>
 
 

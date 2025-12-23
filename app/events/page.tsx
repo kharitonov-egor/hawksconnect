@@ -20,6 +20,7 @@ interface EventFromSupabase {
     location: string;
     attending: number;
     club: string;
+    instaShortURL:string;
 
 }
 
@@ -99,6 +100,7 @@ export default function App() {
                                     imageHeight={event.imageHeight}
                                     imageWidth={event.imageWidth}
                                     club={event.club}
+                                    instaShortURL={event.instaShortURL}
                                 />
                             ))
                             : <h2 className='text-center'>Select parametrs above</h2>
