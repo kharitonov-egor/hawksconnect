@@ -9,6 +9,7 @@ import Navbar from "../../NavBar"
 import { useState, useEffect } from "react";
 import Image from "next/image"
 import {Button} from "../../../components/ui/button"
+import EventStuff from "../eventStuff"
 
 import { supabase } from "../../lib/supabase";
 
@@ -39,6 +40,18 @@ export default function EventPage() {
         setNewView()
     }, [test])
 
+    const campusDisplayNames: { [key: string]: string } = {
+        "dale_mabry": "Dale Mabry Campus",
+        "plant_city": "Plant City Campus",
+        "brandon": "Brandon Campus",
+        "south_shore": "South Shore Campus",
+        "ybor": "Ybor Campus",
+        "westshore": "Westshore Campus",
+        "hawsklanding":"HawksLanding"
+    };
+
+    const displayCampus = campusDisplayNames[eventData?.campus] || eventData?.campus;
+
     
     const router = useRouter();
 
@@ -56,7 +69,7 @@ export default function EventPage() {
                             </div>Back to events
                         </Button>
                     </div>
-                    <div className="flex flex-row">
+                    <div className="flex flex-col md:flex-row gap-5">
 
                         <div>
 
@@ -79,7 +92,7 @@ export default function EventPage() {
 
                         </div>
 
-                        <div className="pl-5 flex flex-col gap-5">
+                        <div className="md:pl-5 flex flex-col gap-5">
                             <h1 className="text-4xl font-bold">{eventData?.name}</h1>
                             <div className="max-w-[700px]">
                                 {
@@ -87,6 +100,25 @@ export default function EventPage() {
                                 }
                                 
                             </div>
+
+                            <EventStuff 
+                                startTime={eventData?.startTime}
+                                endTime={eventData?.endTime}
+                                displayCampus={displayCampus}
+                                location={eventData?.location}
+                                club={eventData?.club}
+                                useCase="/[id]"
+                            />
+                            {/* <div>
+                                <Button className="bg-[#001E60] hover:bg-[#06357A]">Find out more about {eventData?.club}</Button>
+                            </div> */}
+                            {/* <div>
+                            {
+                                eventData?.instaShortURL ? <Button className="bg-[#001E60] hover:bg-[#06357A]" onClick={() => window.open(`https://instagram.com/p/${eventData.instaShortURL}`, '_blank')}>View on Instagram</Button> : null
+                            }
+
+
+                            </div> */}
 
 
                         </div>

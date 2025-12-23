@@ -1,5 +1,4 @@
-import { MapPin, Clock, UserRound } from 'lucide-react'
-import {TimeConverter} from "../../lib/utils"
+
 import { Button } from "@/components/ui/button"
 
 import { useRouter } from "next/navigation";
@@ -23,9 +22,9 @@ interface EventProps{
 
 import Image from "next/image"
 
-import moment from 'moment'
+import EventStuff from "./eventStuff"
 
-import BothTimes from "./bothTimes"
+
 
 export default function Event({title, description, startTime, endTime, campus, location, attending, imageUrl, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
 
@@ -38,9 +37,7 @@ export default function Event({title, description, startTime, endTime, campus, l
         "westshore": "Westshore Campus",
         "hawsklanding":"HawksLanding"
     };
-    console.log('imageurl:')
-    console.log(imageUrl)
-    
+
     const displayCampus = campusDisplayNames[campus] || campus;
 
     const router = useRouter();
@@ -73,41 +70,14 @@ export default function Event({title, description, startTime, endTime, campus, l
 
                     <h1 className='font-semibold text-lg text-[#06357A] md:text-xl mb-3 md:mb-4 break-words'>{title}</h1>
                     
-                    <div className='flex flex-col md:flex-row gap-3 md:gap-10'>
-
-                        <div className='w-75 flex flex-row items-start gap-2'>
-                            <Clock color="#06357A" size={18} />
-                            <div className='flex flex-col'>
-                                <h2>{moment(startTime).format('ddd, MMMM Do YYYY')}</h2>
-                                {
-                                    endTime ? <BothTimes startTime={TimeConverter(startTime, "start")} endTime={TimeConverter(endTime,"end")}/> : <h2>{TimeConverter(startTime,"startonly")}</h2>
-                                }
-
-                            </div>
-
-                        </div>
-
-                        <div className='w-75 flex flex-row items-start gap-2'>
-                            <MapPin color="#06357A" size={18} />
-                            <div className='flex flex-col'>
-                                <h2>{displayCampus}</h2>
-                                <h2>{location}</h2>
-
-                            </div>
-
-
-                        </div>
-
-                        <div className='flex flex-row items-start gap-1'>
-                            <UserRound color="#06357A" size={20} />
-                            <h2>{club}</h2>
-
-                        </div> 
-
-
-                    
-
-                    </div>
+                        <EventStuff 
+                            startTime={startTime}
+                            endTime={endTime}
+                            displayCampus={displayCampus}
+                            location={location}
+                            club={club}
+                            useCase="/events"
+                        />
 
                     <div className='mt-7'>
                         <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => router.push(`/events/${instaShortURL}`)}>Find out more</Button>
