@@ -46,7 +46,7 @@ export default function App() {
       }
 
 
-      console.log(data?.[0]?.startTime)
+      console.log(data)
 
       if (data) {
         setData(data)
@@ -93,6 +93,9 @@ export default function App() {
                                     campus={event.campus} 
                                     location={event.location} 
                                     attending={event.attending} 
+                                    imageUrl={event.imageURL}
+                                    imageHeight={event.imageHeight}
+                                    imageWidth={event.imageWidth}
                                 />
                             ))
                             : <h2 className='text-center'>Select parametrs above</h2>
