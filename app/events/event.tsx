@@ -68,7 +68,7 @@ export default function Event({title, description, startTime, endTime, campus, l
 
                 <div>
 
-                    <h1 className='font-semibold text-lg text-[#06357A] md:text-xl mb-3 md:mb-4 break-words'>{title}</h1>
+                    <h1 className='font-semibold text-xl text-[#06357A] md:text-2xl mb-3 md:mb-4 break-words'>{title}</h1>
                     
                         <EventStuff 
                             startTime={startTime}

@@ -59,7 +59,7 @@ export default function EventPage() {
     return (
 
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
-            <Navbar/>
+            <Navbar useCase="non-landing"/>
             <div className="flex justify-center p-3 pb-20 md:p-0">
                 <div className="flex flex-col w-full max-w-[1200px] mt-15 px-4 md:px-0">
 
@@ -100,7 +100,7 @@ export default function EventPage() {
                         </div>
 
                         <div className="md:pl-5 flex flex-col gap-5">
-                            <h1 className="text-4xl font-bold">{eventData?.name}</h1>
+                            <h1 className="text-4xl font-bold text-[#06357A]">{eventData?.name}</h1>
                             <div className="max-w-[700px]">
                                 {
                                     eventData?.originalDescription ? <h2 className="text-sm">{eventData?.originalDescription}</h2> : <h2 className="text-sm">No description provided</h2>
