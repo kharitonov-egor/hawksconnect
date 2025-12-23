@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import UpcomingPastChoice from "./UpcomingPastChoice"
 
 
+
 interface EventFromSupabase {
     id: string;
     created_at: string;
@@ -88,6 +89,7 @@ export default function App() {
                                 <Event 
                                     key={event.id}
                                     title={event.name} 
+                                    description={event.description}
                                     startTime={event.startTime} 
                                     endTime={event.endTime} 
                                     campus={event.campus} 
@@ -96,6 +98,7 @@ export default function App() {
                                     imageUrl={event.imageURL}
                                     imageHeight={event.imageHeight}
                                     imageWidth={event.imageWidth}
+                                    club={event.club}
                                 />
                             ))
                             : <h2 className='text-center'>Select parametrs above</h2>
