@@ -29,8 +29,8 @@ import Event from "./event"
 export default function App() {
 
     const [data, setData] = useState<any[] | null>(null);
-    const [selectedCampuses, setSelectedCampuses] = useState<string[]>([]);
-    const [selectedUpcoming, setSelectedUpcoming] = useState<string>("upcoming");
+    const [selectedCampuses, setSelectedCampuses] = useState<string[]>(["dale_mabry"]);
+    const [selectedUpcoming, setSelectedUpcoming] = useState<string>("past");
   
     const setNewView = async () => {
       const now = new Date().toISOString()
@@ -55,6 +55,10 @@ export default function App() {
       }
       if (error) console.log(error)
     }
+
+    useEffect(() => {
+        setNewView();
+    }, [selectedCampuses, selectedUpcoming]);
   
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">

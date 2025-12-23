@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 
 import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation";
+import { Suspense } from "react"
 
 import Navbar from "../../NavBar"
 import { useState, useEffect } from "react";
@@ -74,15 +75,21 @@ export default function EventPage() {
                         <div>
 
                             {eventData?.imageURL ?
-                                <div className='w-[350px] rounded-md mx-auto md:mx-0'>
-                                    <Image 
-                                        src={eventData.imageURL}
-                                        alt="Event image" 
-                                        width={350} 
-                                        height={200} 
-                                        className="rounded-md object-cover"
-                                    />
-                                </div> 
+                                <Suspense fallback={
+                                    <div className='w-[350px] h-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
+                                        <h2>Loading...</h2>
+                                    </div>
+                                }>
+                                    <div className='w-[350px] rounded-md mx-auto md:mx-0'>
+                                        <Image 
+                                            src={eventData.imageURL}
+                                            alt="Event image" 
+                                            width={350} 
+                                            height={200} 
+                                            className="rounded-md object-cover"
+                                        />
+                                    </div>
+                                </Suspense>
                                 
                             :
                             <div className='w-full h-[50px] md:size-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
