@@ -38,11 +38,11 @@ export default function App() {
       let data, error;
       
       if (selectedUpcoming == "upcoming") {
-        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now);
+        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now).order("startTime", { ascending: true });
         data = result.data;
         error = result.error;
       } else {
-        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).lt("startTime", now);
+        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).lt("startTime", now).order("startTime", { ascending: false });
         data = result.data;
         error = result.error;
       }
@@ -58,7 +58,7 @@ export default function App() {
 
     useEffect(() => {
         setNewView();
-    }, [selectedCampuses, selectedUpcoming]);
+    }, []);
   
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
