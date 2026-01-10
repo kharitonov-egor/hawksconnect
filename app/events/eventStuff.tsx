@@ -1,8 +1,8 @@
 import moment from 'moment'
-import { MapPin, Clock, UserRound } from 'lucide-react'
+import { MapPin, Clock, UserRound, Instagram } from 'lucide-react'
 import {TimeConverter} from "../../lib/utils"
 import BothTimes from "./bothTimes"
-
+import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 
 
@@ -13,12 +13,13 @@ interface EventStuffProps {
     location: string
     club:string
     useCase:string
+    instaShortURL: string
 }
 
-export default function EventStuff({startTime, endTime, displayCampus, location, club, useCase} : EventStuffProps) {
+export default function EventStuff({startTime, endTime, displayCampus, location, club, useCase, instaShortURL} : EventStuffProps) {
     return (
         <div className={`text-lg flex flex-col ${useCase == "/events" ? "gap-0" : "gap-5"}`}>
-            <div className='flex flex-col md:flex-row gap-3 md:gap-10'>
+            <div className='flex flex-col md:flex-row gap-3 md:gap-10 text-base'>
 
                 <div className='w-75 flex flex-row items-start gap-2 '>
                     <Clock color="#06357A" size={18} className='mt-1' />
@@ -50,7 +51,7 @@ export default function EventStuff({startTime, endTime, displayCampus, location,
                         {
                         useCase == "/events" ? null :
 
-                        <div className='flex flex-row gap-2'>
+                        <div className='flex flex-col gap-8'>
                             
                             <div className='flex flex-row items-start gap-1'>
                                 <UserRound color="#06357A" size={18} className='mt-1' />
@@ -59,10 +60,26 @@ export default function EventStuff({startTime, endTime, displayCampus, location,
                             </div> 
 
                             
-                            <div className='flex items-center'>
+                            {/* <div className='flex items-center'>
                                 <Link href="/">
                                     <h3 className='text-xs text-[#06357A] font-semibold'>Learn more</h3>
                                 </Link>
+
+                            </div> */}
+
+                            <div>
+                                <a 
+                                    href={`https://instagram.com/p/${instaShortURL}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <Button 
+                                        className="bg-gradient-to-r from-[#833AB4] to-[#E1306C] hover:from-[#9B4FD1] hover:to-[#F56040] text-white border-0 font-semibold flex items-center gap-2"
+                                    >
+                                        <Instagram size={18} />
+                                        Instagram Link
+                                    </Button>
+                                </a>
 
                             </div>
 

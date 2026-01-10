@@ -76,6 +76,7 @@ export default function Event({title, description, startTime, endTime, campus, l
                             displayCampus={displayCampus}
                             location={location}
                             club={club}
+                            instaShortURL={instaShortURL}
                             useCase="/events"
                         />
 

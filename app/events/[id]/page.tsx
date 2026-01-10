@@ -114,6 +114,7 @@ export default function EventPage() {
                                 displayCampus={displayCampus}
                                 location={eventData?.location}
                                 club={eventData?.club}
+                                instaShortURL={eventData?.instaShortURL}
                                 useCase="/[id]"
                             />
                             {/* <div>
