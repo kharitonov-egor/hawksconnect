@@ -74,7 +74,7 @@ export default function EventStuff({startTime, endTime, displayCampus, location,
                                     rel="noopener noreferrer"
                                 >
                                     <Button 
-                                        className="bg-gradient-to-r from-[#833AB4] to-[#E1306C] hover:from-[#9B4FD1] hover:to-[#F56040] text-white border-0 font-semibold flex items-center gap-2"
+                                        className="bg-linear-to-r from-[#833AB4] to-[#E1306C] hover:from-[#9B4FD1] hover:to-[#F56040] text-white border-0 font-semibold flex items-center gap-2"
                                     >
                                         <Instagram size={18} />
                                         Instagram Link

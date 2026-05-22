@@ -76,7 +76,7 @@ export default function ComboboxDemo({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[var(--radix-popover-trigger-width)] sm:w-[200px] p-0">
+      <PopoverContent className="w-(--radix-popover-trigger-width) sm:w-[200px] p-0">
         <Command>
           <CommandList>
             <CommandEmpty>No campus found.</CommandEmpty>
