@@ -32,15 +32,6 @@ export default function NavBar({useCase} : NavbarProps) {
 
 
 
-            {
-              useCase == "landing" ? 
-                <div>
-                  <CTAButton/>
-                </div> 
-              : 
-                null
-            }
-
 
           </div>
         </div>
