@@ -19,9 +19,25 @@ import {
 } from "@/components/ui/popover"
 
 export const campuses = [
+  { 
+    value: "brandon", 
+    label: "Brandon Campus",
+  },
   {
     value: "dale_mabry",
     label: "Dale Mabry Campus",
+  },
+  { 
+    value: "plantcity", 
+    label: "Plant City Campus",
+  },
+  { 
+    value: "southshore",
+    label: "Southshore Campus",
+  },
+  { 
+    value: "ybor", 
+    label: "Ybor Campus",
   },
   {
     value: "hawkslanding",
