@@ -34,7 +34,6 @@ export default function Event({title, description, startTime, endTime, campus, l
         "brandon": "Brandon Campus",
         "south_shore": "South Shore Campus",
         "ybor": "Ybor Campus",
-        "westshore": "Westshore Campus",
         "hawsklanding":"HawksLanding"
     };
 
