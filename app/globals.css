@@ -136,3 +136,26 @@
     min-height: 100%;
   }
 }
+
+.hawk-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.hawk-mark::before,
+.hawk-mark::after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: #B99C5F;
+  border-radius: 2px;
+}
+.hawk-mark::before {
+  width: 28px;
+  transform: skewX(-20deg);
+}
+.hawk-mark::after {
+  width: 12px;
+  transform: skewX(-20deg);
+  opacity: 0.55;
+}

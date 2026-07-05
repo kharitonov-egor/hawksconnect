@@ -16,7 +16,7 @@ export default function NavBar({useCase} : NavbarProps) {
       const active = pathname === href
       return (
         <Link href={href}>
-          <div className={`flex flex-row items-center gap-1.5 px-1 py-1 border-b-2 transition-colors ${active ? "border-[#B99C5F] text-[#06357A]" : "border-transparent text-gray-600 hover:text-[#06357A]"}`}>
+          <div className={`flex flex-row items-center gap-1.5 px-1 py-1 border-b-2 transition-all duration-150 hover:scale-105 ${active ? "border-[#B99C5F] text-[#06357A]" : "border-transparent text-gray-600 hover:text-[#06357A]"}`}>
             <Icon size={17}/>
             <span className="font-medium text-sm">{label}</span>
           </div>
