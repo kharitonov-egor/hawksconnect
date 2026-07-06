@@ -42,23 +42,23 @@ export default function Event({title, description, startTime, endTime, campus, l
     const router = useRouter();
 
     return (
-        <div className="w-full h-fit bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
+        <div className="w-full h-full bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
 
-            <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
+            <div className='flex flex-col gap-4'>
 
                 {imageUrl ?
-                            <div className='w-[200px] rounded-md mx-auto md:mx-0'>
-                                <Image 
+                            <div className='w-[200px] rounded-md mx-auto'>
+                                <Image
                                     src={imageUrl}
-                                    alt="Event image" 
-                                    width={200} 
-                                    height={200} 
+                                    alt="Event image"
+                                    width={200}
+                                    height={200}
                                     className="rounded-md object-cover"
                                 />
-                            </div> 
-                            
+                            </div>
+
                         :
-                        <div className='w-full h-[50px] md:size-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
+                        <div className='w-full h-[50px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto'>
                             <h2>No image</h2>
                         </div>
                         }
