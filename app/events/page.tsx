@@ -6,6 +6,7 @@ import { supabase } from "../lib/supabase";
 import CampusChoice, { campuses } from "./campusChoice"
 import { Button } from "@/components/ui/button"
 import UpcomingPastChoice from "./UpcomingPastChoice"
+import Footer from "../Footer"
 
 
 
@@ -63,7 +64,7 @@ export default function App() {
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
             <NavBar useCase="events"/>
-            <div className="flex justify-center p-3 pb-20 md:p-0">
+            <div className="flex-1 flex justify-center p-3 pb-20 md:p-0">
                 <div className="flex flex-col w-full max-w-[1200px] mt-15 px-4 md:px-0">
 
                     <div className='flex flex-row gap-1 items-center mb-6 md:mb-10'>
@@ -120,6 +121,7 @@ export default function App() {
 
 
             </div>
+            <Footer/>
         </div>
     )
 }
