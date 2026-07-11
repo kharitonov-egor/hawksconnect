@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import { supabase } from "./lib/supabase";
+import posthog from "posthog-js";
 
 export default function Main() {
 
@@ -16,7 +17,9 @@ export default function Main() {
         alert("Failure when inserting =(");
         return
       }
-      
+
+      posthog.capture("waitlist_email_submitted")
+
       alert ("Success!")
 
     }

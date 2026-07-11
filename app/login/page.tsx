@@ -8,6 +8,7 @@ import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { supabase } from "../lib/supabase"
+import posthog from "posthog-js"
 
 export default function LoginPage() {
     const router = useRouter()
@@ -34,7 +35,18 @@ export default function LoginPage() {
             setError(signInError.message === "Invalid login credentials"
                 ? "Incorrect email or password"
                 : signInError.message)
+            posthog.capture("login_failed", {
+                error_message: signInError.message,
+            })
             return
+        }
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+            posthog.identify(user.id, {
+                campus: user.user_metadata?.campus,
+            })
+            posthog.capture("user_logged_in")
         }
 
         router.push("/events")

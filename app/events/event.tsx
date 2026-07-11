@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js"
 
 
 
@@ -80,7 +81,14 @@ export default function Event({title, description, startTime, endTime, campus, l
                         />
 
                     <div className='mt-7'>
-                        <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => router.push(`/events/${instaShortURL}`)}>Find out more</Button>
+                        <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => {
+                            posthog.capture("event_find_out_more_clicked", {
+                                event_title: title,
+                                campus,
+                                club,
+                            })
+                            router.push(`/events/${instaShortURL}`)
+                        }}>Find out more</Button>
                     </div>
 
 

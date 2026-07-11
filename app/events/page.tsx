@@ -7,6 +7,7 @@ import CampusChoice, { campuses } from "./campusChoice"
 import { Button } from "@/components/ui/button"
 import UpcomingPastChoice from "./UpcomingPastChoice"
 import Footer from "../Footer"
+import posthog from "posthog-js"
 
 
 
@@ -37,7 +38,7 @@ export default function App() {
       const now = new Date().toISOString()
       console.log(selectedUpcoming)
       let data, error;
-      
+
       if (selectedUpcoming == "upcoming") {
         const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now).order("startTime", { ascending: true });
         data = result.data;
@@ -48,6 +49,11 @@ export default function App() {
         error = result.error;
       }
 
+      posthog.capture("event_searched", {
+        campuses: selectedCampuses,
+        time_filter: selectedUpcoming,
+        results_count: data?.length ?? 0,
+      })
 
       console.log(data)
 
