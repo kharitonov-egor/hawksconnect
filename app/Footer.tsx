@@ -1,21 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const campusNames = [
-    "Dale Mabry Campus",
-    "Brandon Campus",
-    "Plant City Campus",
-    "SouthShore Campus",
-    "Ybor City Campus",
-]
-
 export default function Footer() {
     return (
         <footer className="w-full flex justify-center border-t border-gray-200 bg-white mt-20">
             <div className="w-full max-w-[1200px] px-4 md:px-0 py-10 flex flex-col gap-8">
 
                 <div className="flex flex-col md:flex-row justify-between gap-8">
-                    <div className="flex flex-col gap-3 max-w-[320px]">
+                    <div className="flex flex-col gap-3">
                         <Link href="/" className="flex items-center gap-2 w-fit transition-transform duration-150 hover:scale-105">
                             <Image src="/icon.png" alt="HawksConnect" width={32} height={32} className="rounded-md"/>
                             <span className="font-[family-name:var(--font-display)] font-semibold text-[#06357A]">HawksConnect</span>
@@ -32,17 +24,7 @@ export default function Footer() {
                             <Link href="/faq" className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block">FAQ</Link>
                         </div>
 
-                        <div className="flex flex-col gap-2">
-                            <h3 className="text-sm font-semibold text-[#06357A]">Campuses</h3>
-                            {campusNames.map((name) => (
-                                <span
-                                    key={name}
-                                    className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block cursor-default"
-                                >
-                                    {name}
-                                </span>
-                            ))}
-                        </div>
+
                     </div>
                 </div>
 
