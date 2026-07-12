@@ -28,6 +28,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.fbcdn.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.discordapp.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+      },
     ],
   },
 };

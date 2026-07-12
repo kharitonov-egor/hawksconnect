@@ -19,6 +19,7 @@ interface EventFromSupabase {
     startTime: string;
     endTime: string;
     campus: string;
+    flyerURL?: string;
     location: string;
     attending: number;
     club: string;
@@ -42,6 +43,7 @@ export default function App() {
       if (selectedUpcoming == "upcoming") {
         const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now).order("startTime", { ascending: true });
         data = result.data;
+        console.log(data)
         error = result.error;
       } else {
         const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).lt("startTime", now).order("startTime", { ascending: false });
@@ -107,7 +109,7 @@ export default function App() {
                                     campus={event.campus} 
                                     location={event.location} 
                                     attending={event.attending} 
-                                    imageUrl={event.imageURL}
+                                    flyerURL={event.flyerURL}
                                     imageHeight={event.imageHeight}
                                     imageWidth={event.imageWidth}
                                     club={event.club}

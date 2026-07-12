@@ -14,6 +14,7 @@ interface EventProps{
     campus:string;
     location:string;
     attending:number;
+    flyerURL?: string;
     imageUrl?:string;
     imageHeight?:number;
     imageWidth?: number;
@@ -27,7 +28,7 @@ import EventStuff from "./eventStuff"
 
 
 
-export default function Event({title, description, startTime, endTime, campus, location, attending, imageUrl, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
+export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
 
     const campusDisplayNames: { [key: string]: string } = {
         "dale_mabry": "Dale Mabry Campus",
@@ -47,10 +48,10 @@ export default function Event({title, description, startTime, endTime, campus, l
 
             <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
 
-                {imageUrl ?
+                {flyerURL ?
                             <div className='w-[200px] rounded-md mx-auto md:mx-0'>
                                 <Image 
-                                    src={imageUrl}
+                                    src={flyerURL}
                                     alt="Event image" 
                                     width={200} 
                                     height={200} 
@@ -60,11 +61,10 @@ export default function Event({title, description, startTime, endTime, campus, l
                             
                         :
                         <div className='w-full h-[50px] md:size-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
-                            <h2>No image</h2>
+                            <h2>No image!</h2>
                         </div>
                         }
                 
-
 
                 <div>
 
