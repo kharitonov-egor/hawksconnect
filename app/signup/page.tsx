@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { supabase } from "../lib/supabase"
 import { campuses } from "../events/campusChoice"
+import posthog from "posthog-js"
 
 const ALLOWED_EMAIL_SUFFIX = "hccfl.edu"
 
@@ -29,18 +30,22 @@ export default function SignupPage() {
 
         if (!email.trim().toLowerCase().endsWith(ALLOWED_EMAIL_SUFFIX)) {
             setError("Use your Hawkmail (@hccfl.edu) email address")
+            posthog.capture("signup_error_occurred", { error_reason: "invalid_email_domain" })
             return
         }
         if (!campus) {
             setError("Please select your home campus")
+            posthog.capture("signup_error_occurred", { error_reason: "no_campus_selected" })
             return
         }
         if (password.length < 8) {
             setError("Password must be at least 8 characters")
+            posthog.capture("signup_error_occurred", { error_reason: "password_too_short" })
             return
         }
         if (password !== confirmPassword) {
             setError("Passwords don't match")
+            posthog.capture("signup_error_occurred", { error_reason: "passwords_do_not_match" })
             return
         }
 
@@ -59,9 +64,11 @@ export default function SignupPage() {
 
         if (signUpError) {
             setError(signUpError.message)
+            posthog.capture("signup_error_occurred", { error_reason: "server_error" })
             return
         }
 
+        posthog.capture("user_signed_up", { campus })
         setSubmitted(true)
     }
 

@@ -14,7 +14,7 @@ export default function FAQ() {
                     
                     <div className="flex flex-row gap-1 items-center mb-6 md:mb-10">
                         <HelpCircle color="#06357A" size={30} className="md:w-[35px] md:h-[35px]"/>
-                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">Frequently Asked Questions</h1>
+                        <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold">Frequently Asked Questions</h1>
                     </div>
                     
                     <div className="flex flex-col gap-6">

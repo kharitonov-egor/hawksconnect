@@ -1,9 +1,11 @@
+"use client"
 import moment from 'moment'
 import { MapPin, Clock, UserRound, Instagram } from 'lucide-react'
 import {TimeConverter} from "../../lib/utils"
 import BothTimes from "./bothTimes"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import posthog from 'posthog-js'
 
 
 interface EventStuffProps {
@@ -68,12 +70,16 @@ export default function EventStuff({startTime, endTime, displayCampus, location,
                             </div> */}
 
                             <div>
-                                <a 
+                                <a
                                     href={`https://instagram.com/p/${instaShortURL}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => posthog.capture("event_instagram_link_clicked", {
+                                        club,
+                                        campus: displayCampus,
+                                    })}
                                 >
-                                    <Button 
+                                    <Button
                                         className="bg-linear-to-r from-[#833AB4] to-[#E1306C] hover:from-[#9B4FD1] hover:to-[#F56040] text-white border-0 font-semibold flex items-center gap-2"
                                     >
                                         <Instagram size={18} />

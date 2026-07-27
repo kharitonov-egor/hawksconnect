@@ -29,7 +29,7 @@ export default function NavBar({useCase} : NavbarProps) {
         <div className="w-full max-w-[1200px] h-full flex flex-row justify-between items-center px-4 md:px-5 bg-white/90 backdrop-blur-sm mt-5 rounded-xl mx-2 md:mx-0 shadow-sm border border-gray-200">
           <Link href="/" className="flex flex-row items-center gap-2">
             <Image src='/icon.png' alt="HawksConnect Logo" width={38} height={38} className="rounded-md"/>
-            <span className="font-[family-name:var(--font-display)] font-semibold text-lg text-[#06357A] hidden sm:block">
+            <span className="font-semibold text-lg text-[#06357A] hidden sm:block">
               HawksConnect
             </span>
           </Link>
@@ -38,16 +38,6 @@ export default function NavBar({useCase} : NavbarProps) {
             {navLink("/events", "Events", CalendarDays)}
             {navLink("/faq", "FAQ", HelpCircle)}
 
-            <div className="w-px h-6 bg-gray-200 hidden sm:block"/>
-
-            <div className="flex items-center gap-2">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-[#06357A] transition-all duration-150 hover:scale-105 px-1">
-                Log in
-              </Link>
-              <Link href="/signup" className="bg-[#001E60] hover:bg-[#06357A] text-white text-sm font-medium px-3 h-8 flex items-center rounded-md transition-all duration-150 hover:scale-105">
-                Sign up
-              </Link>
-            </div>
           </div>
         </div>
       </div>

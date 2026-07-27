@@ -13,6 +13,7 @@ import {Button} from "../../../components/ui/button"
 import EventStuff from "../eventStuff"
 
 import { supabase } from "../../lib/supabase";
+import posthog from "posthog-js"
 
 export default function EventPage() {
 
@@ -31,6 +32,12 @@ export default function EventPage() {
 
         if (data && data.length > 0) {
             setEventData(data[0])
+            posthog.capture("event_detail_viewed", {
+                event_id: data[0].id,
+                event_name: data[0].name,
+                campus: data[0].campus,
+                club: data[0].club,
+            })
             console.log("Event data:", data[0])
         } else {
             console.log("No event found")

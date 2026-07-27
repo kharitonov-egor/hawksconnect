@@ -4,12 +4,12 @@ const faqData = [
         answer: "HawksConnect is a student-built engagement platform for Hillsborough College that brings campus events, clubs, and student organizations together in one place."
     },
     {
-        question: "Is HawksConnect officially affiliated with HCC",
+        question: "Is HawksConnect officially affiliated with HC?",
         answer: "Not at the moment. HawksConnect is an independent student project, but we hope to partner with Hillsborough College in the future as the platform grows."
     },
     {
         question: "Where does the event data come from?",
-        answer: "We gather event information from publicly available sources, including official Instagram accounts, Discord servers, club pages, and announcements from HCC student organizations."
+        answer: "We currently gather event information from Instagram accounts of Hillsborough College's student organizations. We aim to expand to Discord servers and other sources in the future."
     },
     {
         question: "Is HawksConnect free to use?",
@@ -21,7 +21,8 @@ const faqData = [
     },
     {
         question: "Who created HawksConnect?",
-        answer: `Egor Kharitonov, HC Alumni, <a href="https://www.kharitonovegor.com/">kharitonovegor.com</a>`
+        answer: `<a href="https://www.kharitonovegor.com/">Egor Kharitonov</a>, HC Alumni<br><a href="https://www.linkedin.com/in/hitha-reddy-pothula/">Hitha Reddy</a>, HC Alumni`
+   
     },
 ]
 

@@ -7,6 +7,7 @@ import CampusChoice, { campuses } from "./campusChoice"
 import { Button } from "@/components/ui/button"
 import UpcomingPastChoice from "./UpcomingPastChoice"
 import Footer from "../Footer"
+import posthog from "posthog-js"
 
 
 
@@ -18,6 +19,7 @@ interface EventFromSupabase {
     startTime: string;
     endTime: string;
     campus: string;
+    flyerURL?: string;
     location: string;
     attending: number;
     club: string;
@@ -37,10 +39,11 @@ export default function App() {
       const now = new Date().toISOString()
       console.log(selectedUpcoming)
       let data, error;
-      
+
       if (selectedUpcoming == "upcoming") {
         const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now).order("startTime", { ascending: true });
         data = result.data;
+        console.log(data)
         error = result.error;
       } else {
         const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).lt("startTime", now).order("startTime", { ascending: false });
@@ -48,6 +51,11 @@ export default function App() {
         error = result.error;
       }
 
+      posthog.capture("event_searched", {
+        campuses: selectedCampuses,
+        time_filter: selectedUpcoming,
+        results_count: data?.length ?? 0,
+      })
 
       console.log(data)
 
@@ -101,7 +109,7 @@ export default function App() {
                                     campus={event.campus} 
                                     location={event.location} 
                                     attending={event.attending} 
-                                    imageUrl={event.imageURL}
+                                    flyerURL={event.flyerURL}
                                     imageHeight={event.imageHeight}
                                     imageWidth={event.imageWidth}
                                     club={event.club}
