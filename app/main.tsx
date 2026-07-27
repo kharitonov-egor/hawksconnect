@@ -25,7 +25,7 @@ export default function Main() {
     }
 
     return (
-        <div className="flex justify-center items-center mt-15">
+        <div className="flex-1 flex justify-center items-center mt-15">
         <div className="flex flex-col gap-2 items-center px-5">
           <h1 className="font-extrabold text-4xl md:text-5xl bg-gradient-to-r from-[#06357A] to-[#001E60] bg-clip-text text-transparent">HawksConnect</h1>
 

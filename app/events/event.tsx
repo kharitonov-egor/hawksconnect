@@ -44,7 +44,7 @@ export default function Event({title, description, startTime, endTime, campus, l
     const router = useRouter();
 
     return (
-        <div className="w-full h-fit bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
+        <div className="w-full h-fit bg-gray-100/60 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
 
             <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
 

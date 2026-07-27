@@ -4,6 +4,7 @@ export type InstagramScraperConstructor = {
   apiKey?: string;
   accountScraped?: string;
   resultsLimit?: number;
+  onlyPostsNewerThan?: string;
 };
 
 export class InstagramScraper {  
@@ -12,6 +13,7 @@ export class InstagramScraper {
   private accountScraped: string;
   private resultsLimit: number;
   private apifyActorID: string;
+  private onlyPostsNewerThan: string;
 
   constructor(options: InstagramScraperConstructor = {}) {
     const apiKey = process.env.APIFY_KEY;
@@ -22,6 +24,7 @@ export class InstagramScraper {
     this.apiKey = apiKey;
     this.accountScraped = options.accountScraped ?? "https://www.instagram.com/kharitonoffegor";
     this.resultsLimit = options.resultsLimit ?? 5;
+    this.onlyPostsNewerThan = options.onlyPostsNewerThan ?? "1 day";
     this.apifyActorID = "nH2AHrwxeTRJoN5hX"
   }
 
@@ -34,6 +37,7 @@ export class InstagramScraper {
     const input = {
         "username": [this.accountScraped],
         "resultsLimit": this.resultsLimit,
+        "onlyPostsNewerThan": this.onlyPostsNewerThan,
         "skipPinnedPosts": false,
         "dataDetailLevel": "basicData"
     };
