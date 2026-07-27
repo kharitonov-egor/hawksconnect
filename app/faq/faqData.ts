@@ -9,7 +9,7 @@ const faqData = [
     },
     {
         question: "Where does the event data come from?",
-        answer: "We gather event information from publicly available sources, including official Instagram accounts, Discord servers, club pages, and announcements from HCC student organizations."
+        answer: "We currently gather event information from Instagram accounts of Hillsborough College's student organizations. We aim to expand to Discord servers and other sources in the future."
     },
     {
         question: "Is HawksConnect free to use?",
