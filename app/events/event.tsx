@@ -26,6 +26,8 @@ import Image from "next/image"
 
 import EventStuff from "./eventStuff"
 
+import { flyerSrc } from "@/app/lib/flyer-url"
+
 
 
 export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
@@ -41,6 +43,8 @@ export default function Event({title, description, startTime, endTime, campus, l
 
     const displayCampus = campusDisplayNames[campus] || campus;
 
+    const flyerImageSrc = flyerSrc(flyerURL);
+
     const router = useRouter();
 
     return (
@@ -48,10 +52,10 @@ export default function Event({title, description, startTime, endTime, campus, l
 
             <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
 
-                {flyerURL ?
+                {flyerImageSrc ?
                             <div className='w-[200px] rounded-md mx-auto md:mx-0'>
-                                <Image 
-                                    src={flyerURL}
+                                <Image
+                                    src={flyerImageSrc}
                                     alt="Event image" 
                                     width={200} 
                                     height={200} 

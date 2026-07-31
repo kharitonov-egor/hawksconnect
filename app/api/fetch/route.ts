@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { InstagramScraper } from "@/app/lib/apify";
 import { LLMAnalyzer } from "@/app/lib/llm";
+import { uploadFlyer } from "@/app/lib/flyer-storage";
 
 import { supabase } from "@/app/lib/supabase";
 
@@ -39,7 +40,7 @@ export async function GET(req: NextRequest) {
 
 
 
-                    let scrapedEventsofOrgRAW: any = await scraper.scrape()
+                    const scrapedEventsofOrgRAW = await scraper.scrape()
 
 
                     // now that we have only unique events that were posted in last 4 hours, time to anaylyze them via AI if its event or not
@@ -77,12 +78,17 @@ export async function GET(req: NextRequest) {
 
                         const eventInfo = await LLM.extractEventInfo()
 
+                        const flyerName = `${organizer.id}/${event.shortCode ?? event.id ?? crypto.randomUUID()}`
+                        const flyerPath = event.displayUrl
+                            ? await uploadFlyer(event.displayUrl, flyerName)
+                            : null
+
                         const { error: insertError } = await supabase.from("events_test").insert({
                             ...eventInfo,
                             organizer: organizer.id,
                             instaShortURL: event.shortCode ?? null,
                             instagramIDofPost: event.id ?? null,
-                            flyerURL: event.displayUrl ?? null,
+                            flyerURL: flyerPath ?? event.displayUrl ?? null,
                         })
 
                         if (insertError) {
