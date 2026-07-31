@@ -75,9 +75,15 @@ Copy `.env.example` to `.env.local`:
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SECRET_KEY=
+APIFY_KEY=
+OPENROUTER_API_KEY=
 NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=
 NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 ```
+
+`SUPABASE_SECRET_KEY` is server-only (used by `app/lib/supabase-admin.ts` to
+write flyers into the `flyers` storage bucket) — never import it client-side.
 
 ## Running & scripts
 
