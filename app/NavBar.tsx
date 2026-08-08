@@ -37,17 +37,6 @@ export default function NavBar({useCase} : NavbarProps) {
           <div className="flex flex-row gap-4 md:gap-7 items-center">
             {navLink("/events", "Events", CalendarDays)}
             {navLink("/faq", "FAQ", HelpCircle)}
-
-            <div className="w-px h-6 bg-gray-200 hidden sm:block"/>
-
-            <div className="flex items-center gap-2">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-[#06357A] transition-all duration-150 hover:scale-105 px-1">
-                Log in
-              </Link>
-              <Link href="/signup" className="bg-[#001E60] hover:bg-[#06357A] text-white text-sm font-medium px-3 h-8 flex items-center rounded-md transition-all duration-150 hover:scale-105">
-                Sign up
-              </Link>
-            </div>
           </div>
         </div>
       </div>

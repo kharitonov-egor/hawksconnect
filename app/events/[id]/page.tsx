@@ -31,7 +31,7 @@ export default function EventPage() {
 
         if (data && data.length > 0) {
             setEventData(data[0])
-            console.log("Event data:", data[0])
+            console.log("Event data:", JSON.stringify(data[0], null, 2))
         } else {
             console.log("No event found")
         }

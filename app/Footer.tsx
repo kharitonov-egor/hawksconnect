@@ -1,14 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const campusNames = [
-    "Dale Mabry Campus",
-    "Brandon Campus",
-    "Plant City Campus",
-    "SouthShore Campus",
-    "Ybor City Campus",
-]
-
 export default function Footer() {
     return (
         <footer className="w-full flex justify-center border-t border-gray-200 bg-white mt-20">
@@ -25,24 +17,10 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div className="flex flex-row gap-12">
-                        <div className="flex flex-col gap-2">
-                            <h3 className="text-sm font-semibold text-[#06357A]">Explore</h3>
-                            <Link href="/events" className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block">Events</Link>
-                            <Link href="/faq" className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block">FAQ</Link>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <h3 className="text-sm font-semibold text-[#06357A]">Campuses</h3>
-                            {campusNames.map((name) => (
-                                <span
-                                    key={name}
-                                    className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block cursor-default"
-                                >
-                                    {name}
-                                </span>
-                            ))}
-                        </div>
+                    <div className="flex flex-col gap-2">
+                        <h3 className="text-sm font-semibold text-[#06357A]">Explore</h3>
+                        <Link href="/events" className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block">Events</Link>
+                        <Link href="/faq" className="text-sm text-gray-500 hover:text-[#06357A] transition-all duration-150 hover:scale-105 w-fit inline-block">FAQ</Link>
                     </div>
                 </div>
 

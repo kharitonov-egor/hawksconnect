@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js"
 
 
 
@@ -13,6 +14,7 @@ interface EventProps{
     campus:string;
     location:string;
     attending:number;
+    flyerURL?: string;
     imageUrl?:string;
     imageHeight?:number;
     imageWidth?: number;
@@ -24,9 +26,11 @@ import Image from "next/image"
 
 import EventStuff from "./eventStuff"
 
+import { flyerSrc } from "@/app/lib/flyer-url"
 
 
-export default function Event({title, description, startTime, endTime, campus, location, attending, imageUrl, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
+
+export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
 
     const campusDisplayNames: { [key: string]: string } = {
         "dale_mabry": "Dale Mabry Campus",
@@ -39,17 +43,19 @@ export default function Event({title, description, startTime, endTime, campus, l
 
     const displayCampus = campusDisplayNames[campus] || campus;
 
+    const flyerImageSrc = flyerSrc(flyerURL);
+
     const router = useRouter();
 
     return (
-        <div className="w-full h-fit bg-gray-100 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
+        <div className="w-full h-fit bg-gray-100/60 p-4 md:p-5 rounded-md border border-gray-400/50 shadow-sm">
 
             <div className='flex flex-col md:flex-row gap-4 md:gap-8'>
 
-                {imageUrl ?
+                {flyerImageSrc ?
                             <div className='w-[200px] rounded-md mx-auto md:mx-0'>
-                                <Image 
-                                    src={imageUrl}
+                                <Image
+                                    src={flyerImageSrc}
                                     alt="Event image" 
                                     width={200} 
                                     height={200} 
@@ -59,11 +65,10 @@ export default function Event({title, description, startTime, endTime, campus, l
                             
                         :
                         <div className='w-full h-[50px] md:size-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
-                            <h2>No image</h2>
+                            <h2>No image!</h2>
                         </div>
                         }
                 
-
 
                 <div>
 
@@ -80,7 +85,14 @@ export default function Event({title, description, startTime, endTime, campus, l
                         />
 
                     <div className='mt-7'>
-                        <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => router.push(`/events/${instaShortURL}`)}>Find out more</Button>
+                        <Button className='bg-[#001E60] hover:bg-[#06357A]' onClick={() => {
+                            posthog.capture("event_find_out_more_clicked", {
+                                event_title: title,
+                                campus,
+                                club,
+                            })
+                            router.push(`/events/${instaShortURL}`)
+                        }}>Find out more</Button>
                     </div>
 
 
