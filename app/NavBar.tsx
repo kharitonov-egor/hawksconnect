@@ -2,8 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { CalendarDays, HelpCircle } from 'lucide-react'
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { CalendarDays, HelpCircle, LogOut, User } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { supabase } from "./lib/supabase"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 interface NavbarProps {
   useCase: string;
@@ -11,6 +15,24 @@ interface NavbarProps {
 
 export default function NavBar({useCase} : NavbarProps) {
     const pathname = usePathname()
+    const router = useRouter()
+    const [user, setUser] = useState<SupabaseUser | null>(null)
+
+    useEffect(() => {
+        supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null))
+
+        const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null)
+        })
+
+        return () => listener.subscription.unsubscribe()
+    }, [])
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut()
+        router.push("/")
+        router.refresh()
+    }
 
     const navLink = (href: string, label: string, Icon: typeof CalendarDays) => {
       const active = pathname === href
@@ -37,7 +59,29 @@ export default function NavBar({useCase} : NavbarProps) {
           <div className="flex flex-row gap-4 md:gap-7 items-center">
             {navLink("/events", "Events", CalendarDays)}
             {navLink("/faq", "FAQ", HelpCircle)}
+            {user ? navLink("/my-events", "My Events", User) : null}
 
+            <div className="w-px h-6 bg-gray-200 hidden sm:block"/>
+
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600 hidden sm:block">
+                  Hi, {(user.user_metadata?.full_name as string)?.split(" ")[0] || "Hawk"}
+                </span>
+                <Button onClick={handleLogout} variant="outline" className="h-8 px-3 text-sm">
+                  <LogOut size={14}/> Log out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-[#06357A] transition-all duration-150 hover:scale-105 px-1">
+                  Log in
+                </Link>
+                <Link href="/signup" className="bg-[#001E60] hover:bg-[#06357A] text-white text-sm font-medium px-3 h-8 flex items-center rounded-md transition-all duration-150 hover:scale-105">
+                  Sign up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

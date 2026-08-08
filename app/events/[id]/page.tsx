@@ -11,8 +11,10 @@ import { useState, useEffect } from "react";
 import Image from "next/image"
 import {Button} from "../../../components/ui/button"
 import EventStuff from "../eventStuff"
+import RSVPButton from "../RSVPButton"
 
 import { supabase } from "../../lib/supabase";
+import { flyerSrc } from "../../lib/flyer-url"
 import posthog from "posthog-js"
 
 export default function EventPage() {
@@ -59,6 +61,7 @@ export default function EventPage() {
     };
 
     const displayCampus = campusDisplayNames[eventData?.campus] || eventData?.campus;
+    const flyerImageSrc = flyerSrc(eventData?.flyerURL);
 
     
     const router = useRouter();
@@ -81,7 +84,7 @@ export default function EventPage() {
 
                         <div>
 
-                            {eventData?.imageURL ?
+                            {flyerImageSrc ?
                                 <Suspense fallback={
                                     <div className='w-[350px] h-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
                                         <h2>Loading...</h2>
@@ -89,7 +92,7 @@ export default function EventPage() {
                                 }>
                                     <div className='w-[350px] rounded-md mx-auto md:mx-0'>
                                         <Image 
-                                            src={eventData.imageURL}
+                                            src={flyerImageSrc}
                                             alt="Event image" 
                                             width={350} 
                                             height={200} 
@@ -124,17 +127,12 @@ export default function EventPage() {
                                 instaShortURL={eventData?.instaShortURL}
                                 useCase="/[id]"
                             />
-                            {/* <div>
-                                <Button className="bg-[#001E60] hover:bg-[#06357A]">Find out more about {eventData?.club}</Button>
-                            </div> */}
-                            {/* <div>
-                            {
-                                eventData?.instaShortURL ? <Button className="bg-[#001E60] hover:bg-[#06357A]" onClick={() => window.open(`https://instagram.com/p/${eventData.instaShortURL}`, '_blank')}>View on Instagram</Button> : null
-                            }
 
-
-                            </div> */}
-
+                            {eventData?.id ? (
+                                <div>
+                                    <RSVPButton eventId={eventData.id}/>
+                                </div>
+                            ) : null}
 
                         </div>
 
