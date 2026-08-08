@@ -1,10 +1,11 @@
 "use client"
-import { CalendarDays } from 'lucide-react'
+import { CalendarDays, Search } from 'lucide-react'
 import NavBar from "../NavBar"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "../lib/supabase";
 import CampusChoice, { campuses } from "./campusChoice"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import UpcomingPastChoice from "./UpcomingPastChoice"
 import Footer from "../Footer"
 import posthog from "posthog-js"
@@ -34,7 +35,8 @@ export default function App() {
     const [data, setData] = useState<any[] | null>(null);
     const [selectedCampuses, setSelectedCampuses] = useState<string[]>(["dale_mabry"]);
     const [selectedUpcoming, setSelectedUpcoming] = useState<string>("past");
-  
+    const [searchQuery, setSearchQuery] = useState<string>("");
+
     const setNewView = async () => {
       const now = new Date().toISOString()
       console.log(selectedUpcoming)
@@ -68,7 +70,18 @@ export default function App() {
     useEffect(() => {
         setNewView();
     }, []);
-  
+
+    const filteredData = useMemo(() => {
+        if (!data) return data
+        if (!searchQuery.trim()) return data
+
+        const query = searchQuery.trim().toLowerCase()
+        return data.filter(event =>
+            event.name?.toLowerCase().includes(query) ||
+            event.club?.toLowerCase().includes(query)
+        )
+    }, [data, searchQuery])
+
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
             <NavBar useCase="events"/>
@@ -80,8 +93,18 @@ export default function App() {
                         <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold">Events</h2>
                     </div>
 
+                    <div className='relative mb-5'>
+                        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"/>
+                        <Input
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Search by event title or club name..."
+                            className="pl-9 h-10 bg-white"
+                        />
+                    </div>
+
                     <div className='flex flex-col sm:flex-row gap-3 sm:gap-5 mb-7'>
-                        <CampusChoice 
+                        <CampusChoice
                         selectedValues={selectedCampuses}
                         onSelectedValuesChange={setSelectedCampuses}
                         />
@@ -94,21 +117,21 @@ export default function App() {
                         <Button onMouseDown={setNewView} className="bg-[#001E60] hover:bg-[#06357A] w-full sm:w-auto">Find</Button>
 
                     </div>
-                    
+
 
 
                     <div className='flex flex-col gap-4'>
-                        { data ? 
-                            data?.map(event => (
-                                <Event 
+                        { filteredData ?
+                            filteredData?.map(event => (
+                                <Event
                                     key={event.id}
-                                    title={event.name} 
+                                    title={event.name}
                                     description={event.description}
-                                    startTime={event.startTime} 
-                                    endTime={event.endTime} 
-                                    campus={event.campus} 
-                                    location={event.location} 
-                                    attending={event.attending} 
+                                    startTime={event.startTime}
+                                    endTime={event.endTime}
+                                    campus={event.campus}
+                                    location={event.location}
+                                    attending={event.attending}
                                     flyerURL={event.flyerURL}
                                     imageHeight={event.imageHeight}
                                     imageWidth={event.imageWidth}
@@ -119,7 +142,7 @@ export default function App() {
                             : <h2 className='text-center'>Select parametrs above</h2>
                         }
 
-                        {data?.length == 0 ? <h2 className='text-center'>Unfortunately, no events founds using paramaters above 🥲</h2> : null}
+                        {filteredData?.length == 0 ? <h2 className='text-center'>Unfortunately, no events founds using paramaters above 🥲</h2> : null}
 
                     </div>
 
