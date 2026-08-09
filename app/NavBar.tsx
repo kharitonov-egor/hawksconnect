@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { CalendarDays, HelpCircle, LogOut, User } from 'lucide-react'
+import { CalendarDays, HelpCircle, LogOut, User, Users } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { supabase } from "./lib/supabase"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
@@ -58,6 +58,7 @@ export default function NavBar({useCase} : NavbarProps) {
 
           <div className="flex flex-row gap-4 md:gap-7 items-center">
             {navLink("/events", "Events", CalendarDays)}
+            {navLink("/clubs", "Clubs", Users)}
             {navLink("/faq", "FAQ", HelpCircle)}
             {user ? navLink("/my-events", "My Events", User) : null}
 
