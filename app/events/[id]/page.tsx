@@ -12,6 +12,7 @@ import Image from "next/image"
 import {Button} from "../../../components/ui/button"
 import EventStuff from "../eventStuff"
 import RSVPButton from "../RSVPButton"
+import AddToCalendarButton from "../AddToCalendarButton"
 
 import { supabase } from "../../lib/supabase";
 import { flyerSrc } from "../../lib/flyer-url"
@@ -24,7 +25,7 @@ export default function EventPage() {
 
     const [eventData, setEventData] = useState<any>(null)
 
-    const setNewView = async () => { 
+    const setNewView = async () => {
         const {data, error} = await supabase.from("events_test").select('*').eq("instaShortURL", test)
 
         if (error) {
@@ -63,7 +64,7 @@ export default function EventPage() {
     const displayCampus = campusDisplayNames[eventData?.campus] || eventData?.campus;
     const flyerImageSrc = flyerSrc(eventData?.flyerURL);
 
-    
+
     const router = useRouter();
 
     return (
@@ -91,16 +92,16 @@ export default function EventPage() {
                                     </div>
                                 }>
                                     <div className='w-[350px] rounded-md mx-auto md:mx-0'>
-                                        <Image 
+                                        <Image
                                             src={flyerImageSrc}
-                                            alt="Event image" 
-                                            width={350} 
-                                            height={200} 
+                                            alt="Event image"
+                                            width={350}
+                                            height={200}
                                             className="rounded-md object-cover"
                                         />
                                     </div>
                                 </Suspense>
-                                
+
                             :
                             <div className='w-full h-[50px] md:size-[200px] bg-gray-200/50 flex items-center justify-center rounded-md mx-auto md:mx-0'>
                                 <h2>No image</h2>
@@ -115,10 +116,10 @@ export default function EventPage() {
                                 {
                                     eventData?.originalDescription ? <h2 className="text-sm">{eventData?.originalDescription}</h2> : <h2 className="text-sm">No description provided</h2>
                                 }
-                                
+
                             </div>
 
-                            <EventStuff 
+                            <EventStuff
                                 startTime={eventData?.startTime}
                                 endTime={eventData?.endTime}
                                 displayCampus={displayCampus}
@@ -129,8 +130,15 @@ export default function EventPage() {
                             />
 
                             {eventData?.id ? (
-                                <div>
+                                <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                                     <RSVPButton eventId={eventData.id}/>
+                                    <AddToCalendarButton
+                                        title={eventData.name}
+                                        description={eventData.originalDescription}
+                                        location={eventData.location}
+                                        startTime={eventData.startTime}
+                                        endTime={eventData.endTime}
+                                    />
                                 </div>
                             ) : null}
 
@@ -140,8 +148,8 @@ export default function EventPage() {
 
                     </div>
                 </div>
-            </div>        
-            
+            </div>
+
         </div>
 
 
