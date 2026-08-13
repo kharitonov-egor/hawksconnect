@@ -159,3 +159,15 @@
   transform: skewX(-20deg);
   opacity: 0.55;
 }
+@keyframes icon-float {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--icon-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--icon-rot, 0deg) + 5deg));
+  }
+}
+
+.icon-float {
+  animation: icon-float 5s ease-in-out infinite;
+}
