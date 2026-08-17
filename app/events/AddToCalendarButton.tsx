@@ -50,8 +50,7 @@ export default function AddToCalendarButton(props: AddToCalendarButtonProps) {
         <div className="relative w-fit" ref={containerRef}>
             <Button
                 onClick={() => setOpen(!open)}
-                variant="outline"
-                className="border-[#06357A] text-[#06357A] hover:bg-[#06357A]/5"
+                className="bg-[#001E60] hover:bg-[#06357A] text-white"
             >
                 <CalendarPlus size={16}/> Add to Calendar
             </Button>

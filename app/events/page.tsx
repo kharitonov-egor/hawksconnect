@@ -25,41 +25,32 @@ interface EventFromSupabase {
     attending: number;
     club: string;
     instaShortURL:string;
-
+    imageHeight?: number;
+    imageWidth?: number;
 }
 
 import Event from "./event"
 
 export default function App() {
 
-    const [data, setData] = useState<any[] | null>(null);
-    const [selectedCampuses, setSelectedCampuses] = useState<string[]>(["dale_mabry"]);
-    const [selectedUpcoming, setSelectedUpcoming] = useState<string>("past");
+    const [data, setData] = useState<EventFromSupabase[] | null>(null);
+    const [selectedCampuses, setSelectedCampuses] = useState<string[]>(campuses.map(campus => campus.value));
+    const [selectedUpcoming, setSelectedUpcoming] = useState<string>("upcoming");
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     const setNewView = async () => {
       const now = new Date().toISOString()
-      console.log(selectedUpcoming)
-      let data, error;
+      const query = supabase.from("events_test").select('*').in("campus", selectedCampuses)
 
-      if (selectedUpcoming == "upcoming") {
-        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).gte("startTime", now).order("startTime", { ascending: true });
-        data = result.data;
-        console.log(data)
-        error = result.error;
-      } else {
-        const result = await supabase.from("events_test").select('*').in("campus", selectedCampuses).lt("startTime", now).order("startTime", { ascending: false });
-        data = result.data;
-        error = result.error;
-      }
+      const { data, error } = selectedUpcoming == "upcoming"
+        ? await query.gte("startTime", now).order("startTime", { ascending: true })
+        : await query.lt("startTime", now).order("startTime", { ascending: false })
 
       posthog.capture("event_searched", {
         campuses: selectedCampuses,
         time_filter: selectedUpcoming,
         results_count: data?.length ?? 0,
       })
-
-      console.log(data)
 
       if (data) {
         setData(data)

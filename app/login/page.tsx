@@ -57,9 +57,11 @@ export default function LoginPage() {
         <div className="min-h-screen w-full flex items-center justify-center bg-zinc-50 p-6">
             <div className="w-full max-w-[400px]">
 
-                <div className="flex items-center gap-2 mb-8 justify-center">
-                    <Image src="/icon.png" alt="HawksConnect" width={32} height={32} className="rounded-md"/>
-                    <span className="font-[family-name:var(--font-display)] font-semibold text-[#06357A]">HawksConnect</span>
+                <div className="flex mb-8 justify-center">
+                    <Link href="/" className="flex items-center gap-2 w-fit transition-transform duration-150 hover:scale-105">
+                        <Image src="/icon.png" alt="HawksConnect" width={32} height={32} className="rounded-md"/>
+                        <span className="font-[family-name:var(--font-display)] font-semibold text-[#06357A]">HawksConnect</span>
+                    </Link>
                 </div>
 
                 <h1 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#06357A] mb-1 text-center">Log in</h1>

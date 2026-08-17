@@ -48,7 +48,6 @@ export default function NavBar({useCase} : NavbarProps) {
 
     const links: NavItem[] = [
       { href: "/events", label: "Events", Icon: CalendarDays },
-      { href: "/clubs", label: "Clubs", Icon: Users },
       { href: "/faq", label: "FAQ", Icon: HelpCircle },
       ...(user ? [{ href: "/my-events", label: "My Events", Icon: User }] : []),
     ]

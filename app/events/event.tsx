@@ -27,21 +27,13 @@ import Image from "next/image"
 import EventStuff from "./eventStuff"
 
 import { flyerSrc } from "@/app/lib/flyer-url"
+import { campusLabel } from "@/app/lib/campus"
 
 
 
 export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
 
-    const campusDisplayNames: { [key: string]: string } = {
-        "dale_mabry": "Dale Mabry Campus",
-        "plant_city": "Plant City Campus",
-        "brandon": "Brandon Campus",
-        "south_shore": "South Shore Campus",
-        "ybor": "Ybor Campus",
-        "hawsklanding":"HawksLanding"
-    };
-
-    const displayCampus = campusDisplayNames[campus] || campus;
+    const displayCampus = campusLabel(campus);
 
     const flyerImageSrc = flyerSrc(flyerURL);
 

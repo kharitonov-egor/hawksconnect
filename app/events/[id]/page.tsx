@@ -13,17 +13,39 @@ import {Button} from "../../../components/ui/button"
 import EventStuff from "../eventStuff"
 import RSVPButton from "../RSVPButton"
 import AddToCalendarButton from "../AddToCalendarButton"
+import InstagramLinkButton from "../InstagramLinkButton"
 
 import { supabase } from "../../lib/supabase";
 import { flyerSrc } from "../../lib/flyer-url"
+import { campusLabel } from "../../lib/campus"
 import posthog from "posthog-js"
+
+interface EventDetail {
+    id: number
+    name: string
+    originalDescription?: string
+    startTime: string
+    endTime?: string
+    campus: string
+    location: string
+    club: string
+    organizer?: string
+    instaShortURL: string
+    flyerURL?: string
+}
+
+interface Organizer {
+    id: string
+    name: string
+}
 
 export default function EventPage() {
 
     const params = useParams()
     const test = params.id as string
 
-    const [eventData, setEventData] = useState<any>(null)
+    const [eventData, setEventData] = useState<EventDetail | null>(null)
+    const [organizer, setOrganizer] = useState<Organizer | null>(null)
 
     const setNewView = async () => {
         const {data, error} = await supabase.from("events_test").select('*').eq("instaShortURL", test)
@@ -33,35 +55,45 @@ export default function EventPage() {
             return
         }
 
-        if (data && data.length > 0) {
-            setEventData(data[0])
-            posthog.capture("event_detail_viewed", {
-                event_id: data[0].id,
-                event_name: data[0].name,
-                campus: data[0].campus,
-                club: data[0].club,
-            })
-            console.log("Event data:", data[0])
-        } else {
+        if (!data || data.length === 0) {
             console.log("No event found")
+            return
         }
+
+        const event: EventDetail = data[0]
+        setEventData(event)
+        posthog.capture("event_detail_viewed", {
+            event_id: event.id,
+            event_name: event.name,
+            campus: event.campus,
+            club: event.club,
+        })
+
+        loadOrganizer(event)
+    }
+
+    // Older rows carry only the club name, so fall back to matching on that.
+    const loadOrganizer = async (event: EventDetail) => {
+        const query = supabase.from("organizers").select("id, name")
+
+        const { data, error } = event.organizer
+            ? await query.eq("id", event.organizer).maybeSingle()
+            : event.club
+                ? await query.ilike("name", event.club).maybeSingle()
+                : { data: null, error: null }
+
+        if (error) {
+            console.error("Error fetching organizer:", error)
+            return
+        }
+        setOrganizer(data)
     }
 
     useEffect(() => {
         setNewView()
     }, [test])
 
-    const campusDisplayNames: { [key: string]: string } = {
-        "dale_mabry": "Dale Mabry Campus",
-        "plant_city": "Plant City Campus",
-        "brandon": "Brandon Campus",
-        "south_shore": "South Shore Campus",
-        "ybor": "Ybor Campus",
-        "westshore": "Westshore Campus",
-        "hawsklanding":"HawksLanding"
-    };
-
-    const displayCampus = campusDisplayNames[eventData?.campus] || eventData?.campus;
+    const displayCampus = campusLabel(eventData?.campus);
     const flyerImageSrc = flyerSrc(eventData?.flyerURL);
 
 
@@ -120,17 +152,18 @@ export default function EventPage() {
                             </div>
 
                             <EventStuff
-                                startTime={eventData?.startTime}
+                                startTime={eventData?.startTime ?? ""}
                                 endTime={eventData?.endTime}
                                 displayCampus={displayCampus}
-                                location={eventData?.location}
-                                club={eventData?.club}
-                                instaShortURL={eventData?.instaShortURL}
+                                location={eventData?.location ?? ""}
+                                club={organizer?.name ?? eventData?.club ?? ""}
+                                clubId={organizer?.id}
+                                instaShortURL={eventData?.instaShortURL ?? ""}
                                 useCase="/[id]"
                             />
 
                             {eventData?.id ? (
-                                <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-center">
                                     <RSVPButton eventId={eventData.id}/>
                                     <AddToCalendarButton
                                         title={eventData.name}
@@ -138,6 +171,11 @@ export default function EventPage() {
                                         location={eventData.location}
                                         startTime={eventData.startTime}
                                         endTime={eventData.endTime}
+                                    />
+                                    <InstagramLinkButton
+                                        instaShortURL={eventData.instaShortURL}
+                                        club={organizer?.name ?? eventData.club}
+                                        campus={displayCampus}
                                     />
                                 </div>
                             ) : null}

@@ -1,11 +1,9 @@
 "use client"
 import moment from 'moment'
-import { MapPin, Clock, UserRound, Instagram } from 'lucide-react'
+import { MapPin, Clock, UserRound, ChevronRight } from 'lucide-react'
 import {TimeConverter} from "../../lib/utils"
 import BothTimes from "./bothTimes"
-import { Button } from "@/components/ui/button"
 import Link from 'next/link'
-import posthog from 'posthog-js'
 
 
 interface EventStuffProps {
@@ -16,9 +14,10 @@ interface EventStuffProps {
     club:string
     useCase:string
     instaShortURL: string
+    clubId?: string
 }
 
-export default function EventStuff({startTime, endTime, displayCampus, location, club, useCase, instaShortURL} : EventStuffProps) {
+export default function EventStuff({startTime, endTime, displayCampus, location, club, useCase, clubId} : EventStuffProps) {
     return (
         <div className={`text-lg flex flex-col ${useCase == "/events" ? "gap-0" : "gap-5"}`}>
             <div className='flex flex-col md:flex-row gap-3 md:gap-10 text-base'>
@@ -49,53 +48,24 @@ export default function EventStuff({startTime, endTime, displayCampus, location,
 
             </div>
 
-                <div>
-                        {
-                        useCase == "/events" ? null :
+            {
+                useCase == "/events" ? null :
 
-                        <div className='flex flex-col gap-8'>
-                            
-                            <div className='flex flex-row items-start gap-1'>
-                                <UserRound color="#06357A" size={18} className='mt-1' />
-                                <h2>Organized by {club}</h2>
-                
-                            </div> 
-
-                            
-                            {/* <div className='flex items-center'>
-                                <Link href="/">
-                                    <h3 className='text-xs text-[#06357A] font-semibold'>Learn more</h3>
-                                </Link>
-
-                            </div> */}
-
-                            <div>
-                                <a
-                                    href={`https://instagram.com/p/${instaShortURL}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={() => posthog.capture("event_instagram_link_clicked", {
-                                        club,
-                                        campus: displayCampus,
-                                    })}
-                                >
-                                    <Button
-                                        className="bg-linear-to-r from-[#833AB4] to-[#E1306C] hover:from-[#9B4FD1] hover:to-[#F56040] text-white border-0 font-semibold flex items-center gap-2"
-                                    >
-                                        <Instagram size={18} />
-                                        Instagram Link
-                                    </Button>
-                                </a>
-
-                            </div>
-
-
-                        </div>
-
-
-                    }
-
+                <div className='flex flex-row items-start gap-2 text-base'>
+                    <UserRound color="#06357A" size={18} className='mt-1' />
+                    {clubId ? (
+                        <Link
+                            href={`/clubs/${clubId}`}
+                            className='group inline-flex items-center gap-1 font-semibold text-[#06357A] underline decoration-[#B99C5F] decoration-2 underline-offset-4 hover:decoration-[#06357A]'
+                        >
+                            Organized by {club}
+                            <ChevronRight size={16} className='transition-transform group-hover:translate-x-0.5'/>
+                        </Link>
+                    ) : (
+                        <h2>{club ? `Organized by ${club}` : "Organizer not listed"}</h2>
+                    )}
                 </div>
+            }
         </div>
 
     )

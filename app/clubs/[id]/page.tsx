@@ -86,7 +86,7 @@ export default function ClubDetailPage() {
     return (
         <div className="flex flex-col min-h-screen w-full bg-zinc-50 text-black">
             <NavBar useCase="clubs"/>
-            <div className="flex-1 flex justify-center p-3 pb-20 md:p-0">
+            <div className="flex-1 flex justify-center px-3 pt-3 pb-20 md:px-0 md:pt-0">
                 <div className="flex flex-col w-full max-w-[1200px] mt-15 px-4 md:px-0">
 
                     <div className="mb-8">
