@@ -27,7 +27,7 @@ export default function MyEventsPage() {
 
             const { data, error } = await supabase
                 .from("rsvps")
-                .select("event_id, events_test(*)")
+                .select("event_id, events(*)")
                 .eq("user_id", user.id)
 
             if (error) {
@@ -37,7 +37,7 @@ export default function MyEventsPage() {
             }
 
             const rsvpEvents = (data ?? [])
-                .map((row: any) => row.events_test)
+                .map((row: any) => row.events)
                 .filter(Boolean)
                 .sort((a: any, b: any) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())
 
@@ -91,6 +91,7 @@ export default function MyEventsPage() {
                                 imageWidth={event.imageWidth}
                                 club={event.club}
                                 instaShortURL={event.instaShortURL}
+                                slug={event.slug}
                             />
                         ))}
                     </div>

@@ -20,6 +20,7 @@ interface EventProps{
     imageWidth?: number;
     club:string;
     instaShortURL:string;
+    slug?:string;
 }
 
 import Image from "next/image"
@@ -31,7 +32,7 @@ import { campusLabel } from "@/app/lib/campus"
 
 
 
-export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL} : EventProps) {
+export default function Event({title, description, startTime, endTime, campus, location, attending, flyerURL, imageHeight, imageWidth, club, instaShortURL, slug} : EventProps) {
 
     const displayCampus = campusLabel(campus);
 
@@ -83,7 +84,7 @@ export default function Event({title, description, startTime, endTime, campus, l
                                 campus,
                                 club,
                             })
-                            router.push(`/events/${instaShortURL}`)
+                            router.push(`/events/${slug ?? instaShortURL}`)
                         }}>Find out more</Button>
                     </div>
 

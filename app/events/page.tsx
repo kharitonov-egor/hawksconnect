@@ -25,6 +25,7 @@ interface EventFromSupabase {
     attending: number;
     club: string;
     instaShortURL:string;
+    slug?: string;
     imageHeight?: number;
     imageWidth?: number;
 }
@@ -40,7 +41,7 @@ export default function App() {
 
     const setNewView = async () => {
       const now = new Date().toISOString()
-      const query = supabase.from("events_test").select('*').in("campus", selectedCampuses)
+      const query = supabase.from("events").select('*').in("campus", selectedCampuses)
 
       const { data, error } = selectedUpcoming == "upcoming"
         ? await query.gte("startTime", now).order("startTime", { ascending: true })
@@ -128,6 +129,7 @@ export default function App() {
                                     imageWidth={event.imageWidth}
                                     club={event.club}
                                     instaShortURL={event.instaShortURL}
+                                    slug={event.slug}
                                 />
                             ))
                             : <h2 className='text-center'>Select parametrs above</h2>

@@ -30,6 +30,7 @@ interface EventDetail {
     location: string
     club: string
     organizer?: string
+    slug?: string
     instaShortURL: string
     flyerURL?: string
 }
@@ -48,7 +49,7 @@ export default function EventPage() {
     const [organizer, setOrganizer] = useState<Organizer | null>(null)
 
     const setNewView = async () => {
-        const {data, error} = await supabase.from("events_test").select('*').eq("instaShortURL", test)
+        const {data, error} = await supabase.from("events").select('*').or(`slug.eq.${test},instaShortURL.eq.${test}`).order("slug", { ascending: true })
 
         if (error) {
             console.error("Error fetching event:", error)

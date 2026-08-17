@@ -33,7 +33,7 @@ export default function ClubDetailPage() {
             setClub(clubData)
 
             const { data: eventData, error: eventError } = await supabase
-                .from("events_test")
+                .from("events")
                 .select("*")
                 .eq("organizer", clubId)
                 .order("startTime", { ascending: false })
@@ -152,6 +152,7 @@ export default function ClubDetailPage() {
                                 imageWidth={event.imageWidth}
                                 club={event.club}
                                 instaShortURL={event.instaShortURL}
+                                slug={event.slug}
                             />
                         ))}
                     </div>
