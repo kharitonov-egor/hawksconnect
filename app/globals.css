@@ -159,6 +159,17 @@
   transform: skewX(-20deg);
   opacity: 0.55;
 }
+@media (min-width: 768px) {
+  .hawk-mark-lg::before {
+    width: 36px;
+    height: 5px;
+  }
+  .hawk-mark-lg::after {
+    width: 15px;
+    height: 5px;
+  }
+}
+
 @keyframes icon-float {
   0%, 100% {
     transform: translateY(0) rotate(var(--icon-rot, 0deg));

@@ -29,6 +29,15 @@ import {
 import { supabase } from "./lib/supabase";
 import posthog from "posthog-js";
 
+const mobileIcons = [
+  { Icon: CalendarDays, size: 34, top: "8%", left: "12%", rot: -12, delay: "0s", duration: "5s" },
+  { Icon: Music, size: 28, top: "14%", left: "74%", rot: 12, delay: "0.6s", duration: "5.5s" },
+  { Icon: Trophy, size: 26, top: "24%", left: "44%", rot: -8, delay: "1.2s", duration: "4.8s" },
+  { Icon: Users, size: 32, top: "80%", left: "14%", rot: 10, delay: "0.3s", duration: "5.6s" },
+  { Icon: Ticket, size: 26, top: "88%", left: "48%", rot: -6, delay: "1.5s", duration: "5.2s" },
+  { Icon: Sparkles, size: 28, top: "76%", left: "76%", rot: 12, delay: "0.9s", duration: "4.9s" },
+]
+
 const floatingIcons = [
   { Icon: CalendarDays, size: 46, top: "6%", left: "6%", rot: -12, delay: "0s", duration: "5s" },
   { Icon: Music, size: 38, top: "10%", left: "88%", rot: 12, delay: "0.4s", duration: "5.5s" },
@@ -72,14 +81,29 @@ export default function Main() {
     }
 
     return (
-        <div className="flex-1 relative overflow-hidden bg-[#06357A] flex items-center justify-center min-h-[calc(100vh-80px)]">
+        <div className="flex-1 relative overflow-hidden bg-[#06357A] flex items-center justify-center min-h-[calc(100vh-75px)] py-16 md:py-28">
 
           <div className="absolute inset-0 overflow-hidden opacity-35 text-white pointer-events-none">
+            {mobileIcons.map(({ Icon, size, top, left, rot, delay, duration }, i) => (
+              <Icon
+                key={i}
+                size={size}
+                className="absolute icon-float md:hidden"
+                style={{
+                  top,
+                  left,
+                  "--icon-rot": `${rot}deg`,
+                  animationDelay: delay,
+                  animationDuration: duration,
+                } as React.CSSProperties}
+              />
+            ))}
+
             {floatingIcons.map(({ Icon, size, top, left, rot, delay, duration }, i) => (
               <Icon
                 key={i}
                 size={size}
-                className="absolute icon-float"
+                className="absolute icon-float hidden md:block"
                 style={{
                   top,
                   left,
@@ -91,20 +115,16 @@ export default function Main() {
             ))}
           </div>
 
-          <div className="relative z-10 flex flex-col gap-2 items-center px-5 text-center">
-            <span className="text-xs font-medium tracking-[0.15em] uppercase text-[#D9C596]">
-              Hillsborough College
-            </span>
+          <div className="relative z-10 flex flex-col gap-3 md:gap-5 items-center px-5 text-center">
+            <h1 className="font-extrabold text-4xl md:text-6xl text-white">HawksConnect</h1>
 
-            <h1 className="font-extrabold text-4xl md:text-5xl text-white mt-1">HawksConnect</h1>
+            <div className="hawk-mark hawk-mark-lg my-1"></div>
 
-            <div className="hawk-mark my-1"></div>
-
-            <p className="text-center text-white/85 text-lg max-w-[500px]">
+            <p className="text-center text-white/85 text-lg md:text-xl max-w-[500px] md:max-w-[620px]">
               Every campus event, club meetup in one place for Hillsborough College students.
             </p>
 
-            <div className="mt-8 text-center">
+            <div className="mt-8 md:mt-12 text-center">
               <CTAButton/>
             </div>
           </div>

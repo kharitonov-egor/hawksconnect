@@ -13,7 +13,7 @@ export default function Footer() {
                             <span className="font-[family-name:var(--font-display)] font-semibold text-[#06357A]">HawksConnect</span>
                         </Link>
                         <p className="text-sm text-gray-500">
-                            A hub for events across all Hillsborough College campuses. 
+                            A hub for events across all Hillsborough College campuses.
                         </p>
                     </div>
 

@@ -5,7 +5,7 @@ import posthog from "posthog-js"
 
 export default function CTAButton () {
     return (
-        <Button asChild className="bg-[#B99C5F] hover:bg-[#a88a4f] text-[#06357A] font-semibold">
+        <Button asChild className="bg-[#B99C5F] hover:bg-[#a88a4f] text-white font-semibold md:h-12 md:px-8 md:text-lg">
             <a href="/events" onClick={() => posthog.capture("cta_clicked")}>Try it now</a>
         </Button>
 
